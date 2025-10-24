@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: arubacloud
+    runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
