@@ -22,6 +22,6 @@ jobs:
       - name: Log in to Docker registry
         run: echo $DOCKER_PASSWORD | docker login ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com -u $DOCKER_USERNAME --password-stdin
       - name: Build Docker image
-        run: docker build -t ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/devsecopsdemo2025:latest .
+        run: docker build -t ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025:latest .
       - name: Push Docker image
-        run: docker push ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/devsecopsdemo2025:latest
+        run: docker push ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025:latest
