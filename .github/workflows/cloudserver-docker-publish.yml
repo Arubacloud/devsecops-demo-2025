@@ -1,12 +1,14 @@
-name: Build and Push Docker Image
+name: Build and Push WordPress Docker Image
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'kaas/**'
 
 jobs:
-  build-and-push:
+  build-and-push-kaas:
     runs-on: self-hosted
     steps:
       - name: Checkout code
@@ -21,7 +23,7 @@ jobs:
           fi
       - name: Log in to Docker registry
         run: echo $DOCKER_PASSWORD | docker login ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com -u $DOCKER_USERNAME --password-stdin
-      - name: Build Docker image
-        run: docker build -t ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025:latest .
-      - name: Push Docker image
-        run: docker push ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025:latest
+      - name: Build WordPress Docker image
+        run: docker build -t ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-kaas:latest kaas
+      - name: Push WordPress Docker image
+        run: docker push ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-kaas:latest

@@ -1,0 +1,29 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'cloudserver/**'
+
+jobs:
+  build-and-push:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Debug Docker credentials
+        run: |
+          echo "DOCKER_USERNAME: $DOCKER_USERNAME"
+          if [ -z "$DOCKER_PASSWORD" ]; then
+            echo "DOCKER_PASSWORD is not set!"
+          else
+            echo "DOCKER_PASSWORD is set."
+          fi
+      - name: Log in to Docker registry
+        run: echo $DOCKER_PASSWORD | docker login ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com -u $DOCKER_USERNAME --password-stdin
+      - name: Build Docker image
+        run: docker build -t ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-cloudserver:latest .
+      - name: Push Docker image
+        run: docker push ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-cloudserver:latest
