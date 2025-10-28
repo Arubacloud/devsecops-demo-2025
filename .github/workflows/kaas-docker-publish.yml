@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'cloudserver/**'
+      - 'build/kaas/**'
 
 jobs:
   build-and-push:
@@ -24,6 +24,6 @@ jobs:
       - name: Log in to Docker registry
         run: echo $DOCKER_PASSWORD | docker login ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com -u $DOCKER_USERNAME --password-stdin
       - name: Build Docker image
-        run: docker build -t ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-kaas:latest kaas
+        run: docker build -t ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-kaas:latest build/kaas
       - name: Push Docker image
         run: docker push ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-kaas:latest
