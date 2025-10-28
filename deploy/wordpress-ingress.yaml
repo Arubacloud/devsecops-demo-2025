@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: wordpress-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location ~* ^/(swagger|v2/api-docs|graphql|api|webjars) { return 404; }
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - devsecops2025-arubacloud.com
+      secretName: devsecops2025-arubacloud-com-tls   # cert-manager will create/update this Secret
+  rules:
+    - host: devsecops2025-arubacloud.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: wordpress
+                port:
+                  number: 80
