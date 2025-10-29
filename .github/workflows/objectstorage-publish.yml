@@ -1,0 +1,27 @@
+name: Upload Static Website to Aruba Cloud Object Storage
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'build/objectstorage/**'
+
+jobs:
+  upload-to-arubacloud-objectstorage:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install AWS CLI
+        run: |
+          if ! command -v aws &> /dev/null; then
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+          fi
+
+      - name: Upload website to Aruba Cloud Object Storage
+        run: |
+          aws s3 sync build/objectstorage/ s3://devsecops2025/ --endpoint-url http://r3-it.storage.cloud.it --acl public-read

@@ -1,4 +1,4 @@
-name: Build and Push WordPress Docker Image
+name: Build and Push Docker Image
 
 on:
   push:
@@ -13,14 +13,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Debug Docker credentials
-        run: |
-          echo "DOCKER_USERNAME: $DOCKER_USERNAME"
-          if [ -z "$DOCKER_PASSWORD" ]; then
-            echo "DOCKER_PASSWORD is not set!"
-          else
-            echo "DOCKER_PASSWORD is set."
-          fi
       - name: Log in to Docker registry
         run: echo $DOCKER_PASSWORD | docker login ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com -u $DOCKER_USERNAME --password-stdin
       - name: Build WordPress Docker image
