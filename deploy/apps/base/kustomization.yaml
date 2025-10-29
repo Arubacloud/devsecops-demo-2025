@@ -1,0 +1,6 @@
+resources:
+  - external-secret.yaml
+  - deployment.yaml
+  - cronjob.yaml
+  - service.yaml
+  - ingress.yaml

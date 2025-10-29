@@ -20,6 +20,9 @@ spec:
         - name: mu-plugins
           configMap:
             name: wordpress-mu-plugins
+            items:
+              - key: 00-canonical-urls.php
+                path: 00-canonical-urls.php
       initContainers:
         - name: enable-servername
           image: bash:5.2
@@ -54,33 +57,13 @@ spec:
                 secretKeyRef:
                   name: wordpress-db-secret
                   key: WORDPRESS_DB_PASSWORD
-            - name: WORDPRESS_CONFIG_EXTRA
-              value: |
-                // Trust ingress proxy scheme
-                if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
-                    $_SERVER['HTTPS'] = 'on';
-                    $_SERVER['SERVER_PORT'] = 443;
-                }
-
-                // Pin canonical host to avoid weird ports in URLs
-                $_SERVER['HTTP_HOST'] = 'devsecops2025-arubacloud.com';
-
-                // Canonical HTTPS URLs
-                if (!defined('WP_HOME')) define('WP_HOME', 'https://devsecops2025-arubacloud.com');
-                if (!defined('WP_SITEURL')) define('WP_SITEURL', 'https://devsecops2025-arubacloud.com');
-
-                // Force SSL for admin
-                if (!defined('FORCE_SSL_ADMIN')) define('FORCE_SSL_ADMIN', true);
-
-                // Disable built-in cron (K8s CronJob handles it)
-                if (!defined('DISABLE_WP_CRON')) define('DISABLE_WP_CRON', true);
-
           volumeMounts:
             - name: apache-conf
               mountPath: /etc/apache2/conf-enabled/servername.conf
               subPath: servername.conf
             - name: mu-plugins
               mountPath: /var/www/html/wp-content/mu-plugins
+              readOnly: true
 
           readinessProbe:
             httpGet: { path: /wp-includes/images/blank.gif, port: 80 }

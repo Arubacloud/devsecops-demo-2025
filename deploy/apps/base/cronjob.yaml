@@ -13,6 +13,9 @@ spec:
           containers:
             - name: curl
               image: curlimages/curl:8.10.1
+              envFrom:
+                - configMapRef:
+                    name: cronjob-env
               command: ["sh", "-c"]
               args:
-                - "ts=$(date +%s); curl -fsS --max-time 20 \"https://devsecops2025-arubacloud.com/wp-cron.php?doing_wp_cron=$ts\""
+                - "ts=$(date +%s); curl -fsS --max-time 20 \"${WORDPRESS_CRON_URL}?doing_wp_cron=$ts\""

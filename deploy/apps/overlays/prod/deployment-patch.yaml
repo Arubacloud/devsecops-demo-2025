@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+spec:
+  template:
+    spec:
+      containers:
+        - name: wordpress
+          env:
+            - name: WORDPRESS_CONFIG_EXTRA
+              value: |
+                // Trust ingress proxy scheme
+                if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+                    $_SERVER['HTTPS'] = 'on';
+                    $_SERVER['SERVER_PORT'] = 443;
+                }
+                // Pin canonical host to avoid weird ports in URLs
+                $_SERVER['HTTP_HOST'] = 'devsecops2025-arubacloud.com';
+                // Canonical HTTPS URLs
+                if (!defined('WP_HOME')) define('WP_HOME', 'https://devsecops2025-arubacloud.com');
+                if (!defined('WP_SITEURL')) define('WP_SITEURL', 'https://devsecops2025-arubacloud.com');
+                // Force SSL for admin
+                if (!defined('FORCE_SSL_ADMIN')) define('FORCE_SSL_ADMIN', true);
+                // Disable built-in cron (K8s CronJob handles it)
+                if (!defined('DISABLE_WP_CRON')) define('DISABLE_WP_CRON', true);

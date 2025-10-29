@@ -1,0 +1,53 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: external-secrets-controller
+rules:
+  # core objects ESO touches
+  - apiGroups: [""]
+    resources: ["secrets","serviceaccounts","namespaces","events"]
+    verbs: ["get","list","watch","create","update","patch","delete"]
+
+  # <-- allow minting a token for the referenced SA
+  - apiGroups: [""]
+    resources: ["serviceaccounts/token"]
+    verbs: ["create"]
+
+  # namespaced ESO resources
+  - apiGroups: ["external-secrets.io"]
+    resources:
+      - "externalsecrets"
+      - "externalsecrets/status"
+      - "secretstores"
+      - "secretstores/status"
+      - "pushsecrets"
+    verbs: ["get","list","watch","update","patch"]
+
+  # cluster-scoped ESO resources (need status updates too)
+  - apiGroups: ["external-secrets.io"]
+    resources:
+      - "clustersecretstores"
+      - "clustersecretstores/status"
+      - "clusterexternalsecrets"
+      - "clusterexternalsecrets/status"
+      - "clusterpushsecrets"
+      - "clusterpushsecrets/status"
+    verbs: ["get","list","watch","update","patch"]
+
+  # generators (read-only is fine)
+  - apiGroups: ["generators.external-secrets.io"]
+    resources: ["generatorstates"]
+    verbs: ["get","list","watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: external-secrets-controller-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: external-secrets-controller
+subjects:
+  - kind: ServiceAccount
+    name: external-secrets
+    namespace: external-secrets

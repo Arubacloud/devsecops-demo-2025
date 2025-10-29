@@ -1,0 +1,52 @@
+server:
+  ha:
+    enabled: true
+    replicas: 3
+    raft:
+      enabled: true
+      config: |
+        listener "tcp" { address = "0.0.0.0:8200" tls_disable = 1 }
+        storage "raft" { path = "/vault/data" }
+        service_registration "kubernetes" {}
+        # Auto-join peers (adjust service/labels/ns if yours differ)
+        retry_join {
+          leader_api_addr = "http://vault-0.vault-internal:8200"
+        }
+  dataStorage:
+    enabled: true
+    storageClass: cinder   # Use your Cinder SC name
+    accessMode: ReadWriteOnce
+    size: 5Gi
+  auditStorage:
+    enabled: false         # Set true to enable audit logs on PVs
+    storageClass: cinder
+    # accessMode: ReadWriteOnce
+    # size: 10Gi
+  service:
+    enabled: true
+    type: ClusterIP
+    port: 8200
+
+  # If Vault will be reached via the public hostname,
+  # set the API address so redirects & CLI are correct.
+  extraEnvironmentVars:
+    VAULT_API_ADDR: "https://vault.devsecops2025-arubacloud.com"
+
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    pathType: Prefix                 # 👈 let the chart set the pathType
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    hosts:
+      - host: vault.devsecops2025-arubacloud.com
+        paths:
+          - "/"                      # 👈 list of STRING paths (not objects)
+    tls:
+      - hosts:
+          - vault.devsecops2025-arubacloud.com
+        secretName: vault-devsecops2025-arubacloud-com-tls
+
+ui:
+  enabled: true

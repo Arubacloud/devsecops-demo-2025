@@ -12,10 +12,6 @@ metadata:
       location ~* ^/(swagger|v2/api-docs|graphql|api|webjars) { return 404; }
 spec:
   ingressClassName: nginx
-  tls:
-    - hosts:
-        - devsecops2025-arubacloud.com
-      secretName: devsecops2025-arubacloud-com-tls   # cert-manager will create/update this Secret
   rules:
     - host: devsecops2025-arubacloud.com
       http:
@@ -27,3 +23,7 @@ spec:
                 name: wordpress
                 port:
                   number: 80
+  tls:
+    - hosts:
+        - devsecops2025-arubacloud.com
+      secretName: devsecops2025-arubacloud-com-tls
