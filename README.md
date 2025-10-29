@@ -4,12 +4,19 @@
 
 # DevSecOps2025 - Demo
 
-This repository demonstrates a modern DevSecOps workflow for deploying a secure WordPress application and static website using Kubernetes, Docker, GitHub Actions, Vault, and Kustomize.
+This repository demonstrates a modern DevSecOps workflow for deploying:
+
+- A static website hosted in Aruba Cloud Object Storage
+- A customized WordPress image deployed in Aruba Managed Kubernetes via ArgoCD
+- A Go REST microservice deployed on an Aruba Cloud Server and run via Docker Engine
+
+Both the Go REST microservice and WordPress application use Aruba Cloud Database for data storage.
 
 ## Features
 
-- **Static Website**: Built with Docker and Nginx, automated CI/CD via GitHub Actions.
-- **WordPress Deployment**: Containerized WordPress with custom plugins, deployed to Kubernetes.
+- **Static Website**: Hosted in Aruba Cloud Object Storage, automated CI/CD via GitHub Actions.
+- **WordPress Deployment**: Customized WordPress image, deployed to Aruba Managed Kubernetes using ArgoCD, with custom plugins and secure configuration.
+- **Go REST Microservice**: Containerized Go API for CRUD operations, deployed on Aruba Cloud Server via Docker Engine, connected to Aruba Cloud Database.
 - **Kubernetes Manifests**: Managed with Kustomize for environment-specific overlays.
 - **Secrets Management**: Secure integration with HashiCorp Vault and External Secrets Operator.
 - **TLS & Ingress**: Automated TLS via cert-manager, flexible ingress configuration.
@@ -17,28 +24,29 @@ This repository demonstrates a modern DevSecOps workflow for deploying a secure 
 
 ## Structure
 
-- `static-site/` — Static website source and Dockerfile.
-- `kaas/` — WordPress Docker setup and custom plugins.
-- `deploy/` — Kubernetes manifests (apps, base, overlays).
-- `setup/` — Guides for Vault, External Secrets Operator, and other tools.
-- `.github/workflows/` — CI/CD pipeline definitions.
+- `build/` — Source code and build assets (static site, Go REST microservice, WordPress Docker setup, etc.)
+- `deploy/` — GitOps manifests and Kustomize overlays for deployment (Kubernetes, ArgoCD, etc.)
+- `setup/` — Initialization guides and configuration files (Vault, External Secrets Operator, GitHub runner, etc.)
+- `.github/workflows/` — CI/CD pipeline definitions
 
 ## Getting Started
 
-1. Build and push images using GitHub Actions.
-2. Deploy to Kubernetes using Kustomize overlays.
+1. Build and push artifacts using GitHub Actions.
+2. Deploy WordPress and Go microservice to Aruba Managed Kubernetes using Kustomize overlays and ArgoCD.
 3. Integrate Vault and External Secrets Operator for secure secrets management.
+4. Host static site in Aruba Cloud Object Storage.
 
 ## Technologies
 
-- Docker, Nginx, WordPress
-- Kubernetes, Kustomize, cert-manager
+- Docker, Nginx, WordPress, Go
+- Kubernetes, Kustomize, cert-manager, ArgoCD
 - HashiCorp Vault, External Secrets Operator
-- GitHub Actions, ArgoCD
+- Aruba Cloud Object Storage, Aruba Cloud Database
+- GitHub Actions
 
 ## Cloud Provider
 
- [ArubaCloud](https://arubacloud.com)
+**ArubaCloud:** [https://arubacloud.com](https://arubacloud.com)
 
 **Services:**
 - [CloudServer](https://kb.arubacloud.com/en/computing/cloud-servers.aspx)
