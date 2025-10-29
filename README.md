@@ -38,7 +38,7 @@ This repository demonstrates a modern DevSecOps workflow for deploying a secure 
 
 ## Cloud Provider
 
-**cloudProvider:** [ArubaCloud](https://arubacloud.com)
+ [ArubaCloud](https://arubacloud.com)
 
 **Services:**
 - [CloudServer](https://kb.arubacloud.com/en/computing/cloud-servers.aspx)
