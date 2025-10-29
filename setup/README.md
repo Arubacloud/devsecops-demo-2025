@@ -1,25 +1,25 @@
 # How to setup
 
-## 0. Register a Self Hosted Github Runner
+### 0. Register a Self Hosted Github Runner
 
-[here](github-runner/)
+[link](github-runner/)
 
-## 1. Install ArgoCD
+### 1. Install ArgoCD
 
-[here](argocd/)
-
----
-## 2. Install Hashicorp Vault
-
-[here](vault/)
+[link](argocd/)
 
 ---
-## 3. Install External Secret Operator
+### 2. Install Hashicorp Vault
 
-[here](external-secret/)
+[link](vault/)
 
 ---
-## 4. Deploy ArgoCD Root Application
+### 3. Install External Secret Operator
+
+[link](external-secret/)
+
+---
+### 4. Deploy ArgoCD Root Application
 
 Create the ARGO CD Application
 ```bash
