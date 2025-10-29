@@ -139,7 +139,7 @@ spec:
 ```
 
 ## Notes
-- For production, review the [External Secrets Operator documentation](https://external-secrets.io/) for advanced configuration and integration with secret backends (e.g., Vault, AWS Secrets Manager).
+- For production, review the [External Secrets Operator documentation](https://external-secrets.io/) for advanced configuration and integration with secret backends.
 - Ensure your cluster has network access to your chosen secret backend.
 
 ## References

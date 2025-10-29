@@ -1,22 +1,22 @@
 # How to setup
 
 
-## Install ArgoCD
+## 1. Install ArgoCD
 
 [here](argocd/)
 
 ---
-## Install Hashicorp Vault
+## 2. Install Hashicorp Vault
 
 [here](vault/)
 
 ---
-## Install External Secret Operator
+## 3. Install External Secret Operator
 
 [here](external-secret/)
 
 ---
-## Deploy ArgoCD Root Application
+## 4. Deploy ArgoCD Root Application
 
 Create the ARGO CD Application
 ```bash
