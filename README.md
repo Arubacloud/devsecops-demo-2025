@@ -12,16 +12,6 @@ This repository demonstrates a modern DevSecOps workflow for deploying:
 
 Both the Go REST microservice and WordPress application use Aruba Cloud Database for data storage.
 
-## Features
-
-- **Static Website**: Hosted in Aruba Cloud Object Storage, automated CI/CD via GitHub Actions.
-- **WordPress Deployment**: Customized WordPress image, deployed to Aruba Managed Kubernetes using ArgoCD, with custom plugins and secure configuration.
-- **Go REST Microservice**: Containerized Go API for CRUD operations, deployed on Aruba Cloud Server via Docker Engine, connected to Aruba Cloud Database.
-- **Kubernetes Manifests**: Managed with Kustomize for environment-specific overlays.
-- **Secrets Management**: Secure integration with HashiCorp Vault and External Secrets Operator.
-- **TLS & Ingress**: Automated TLS via cert-manager, flexible ingress configuration.
-- **CI/CD Automation**: GitHub Actions for build, test, and deployment pipelines.
-
 ## Structure
 
 - `build/` — Source code and build assets (static site, Go REST microservice, WordPress Docker setup, etc.)
@@ -29,24 +19,13 @@ Both the Go REST microservice and WordPress application use Aruba Cloud Database
 - `setup/` — Initialization guides and configuration files (Vault, External Secrets Operator, GitHub runner, etc.)
 - `.github/workflows/` — CI/CD pipeline definitions
 
-## Getting Started
-
-1. Build and push artifacts using GitHub Actions.
-2. Deploy WordPress and Go microservice to Aruba Managed Kubernetes using Kustomize overlays and ArgoCD.
-3. Integrate Vault and External Secrets Operator for secure secrets management.
-4. Host static site in Aruba Cloud Object Storage.
-
-## Technologies
-
-- Docker, Nginx, WordPress, Go
-- Kubernetes, Kustomize, cert-manager, ArgoCD
-- HashiCorp Vault, External Secrets Operator
-- Aruba Cloud Object Storage, Aruba Cloud Database
-- GitHub Actions
-
 ## Cloud Provider
 
 **ArubaCloud:** [https://arubacloud.com](https://arubacloud.com)
+
+<p align="center">
+  <img src="deployment.png" alt="Deployment Architecture" width="600"/>
+</p>
 
 **Services:**
 - [CloudServer](https://kb.arubacloud.com/en/computing/cloud-servers.aspx)
@@ -60,3 +39,28 @@ Both the Go REST microservice and WordPress application use Aruba Cloud Database
 - [BlockStorage](https://kb.arubacloud.com/cmp/en/storage/block-storage.aspx)
 - [Container Registry](https://kb.arubacloud.com/en/storage/object-storage.aspx)
 - [Object Storage](https://kb.arubacloud.com/en/storage/object-storage.aspx)
+
+## Getting Started
+
+1. Build and push artifacts using GitHub Actions.
+2. Deploy WordPress to Aruba Managed Kubernetes using Kustomize overlays and ArgoCD.
+3. Deploy Go REST microservice to Aruba Cloud Server using Docker Engine.
+4. Integrate Vault and External Secrets Operator for secure secrets management.
+5. Host static site in Aruba Cloud Object Storage.
+
+## Features
+
+- **Static Website**: Hosted in Aruba Cloud Object Storage, automated CI/CD via GitHub Actions.
+- **WordPress Deployment**: Customized WordPress image, deployed to Aruba Managed Kubernetes using ArgoCD, with custom plugins and secure configuration.
+- **Go REST Microservice**: Containerized Go API for CRUD operations, deployed on Aruba Cloud Server via Docker Engine, connected to Aruba Cloud Database.
+- **Kubernetes Manifests**: Managed with Kustomize for environment-specific overlays.
+- **Secrets Management**: Secure integration with HashiCorp Vault and External Secrets Operator.
+- **TLS & Ingress**: Automated TLS via cert-manager, flexible ingress configuration.
+- **CI/CD Automation**: GitHub Actions for build, test, and deployment pipelines.
+
+## Technologies
+
+- Docker, Nginx, WordPress, Go
+- Kubernetes, Kustomize, cert-manager, ArgoCD
+- HashiCorp Vault, External Secrets Operator
+- Aruba Cloud Object Storage, Aruba Cloud Database

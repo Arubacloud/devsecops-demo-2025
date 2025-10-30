@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build, Push, and Restart Docker Compose
 
 on:
   push:
@@ -8,14 +8,33 @@ on:
       - 'build/cloudserver/**'
 
 jobs:
-  build-and-push-kaas:
+  build-push-restart-cloudserver:
     runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Log in to Docker registry
         run: echo $DOCKER_PASSWORD | docker login ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com -u $DOCKER_USERNAME --password-stdin
-      - name: Build WordPress Docker image
-        run: docker build -t ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-cloudserver:latest build/cloudserver
-      - name: Push WordPress Docker image
-        run: docker push ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-cloudserver:latest
+
+      - name: Copy docker-compose.yml to /home/ubuntu
+        run: cp build/cloudserver/docker-compose.yml /home/ubuntu/docker-compose.yml
+
+      - name: Build Docker image with docker compose
+        run: |
+          cd /home/ubuntu
+          docker compose build restapi
+
+      - name: Tag custom image
+        run: |
+          docker tag cloudserver_restapi:latest ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-cloudserver:latest
+
+      - name: Push Docker image
+        run: |
+          docker push ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-cloudserver:latest
+
+      - name: Restart docker compose
+        run: |
+          cd /home/ubuntu
+          docker compose down
+          docker compose up

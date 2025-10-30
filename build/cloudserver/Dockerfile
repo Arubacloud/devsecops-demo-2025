@@ -1,14 +1,11 @@
-FROM golang:1.20-alpine AS builder
+FROM golang:1.21
+
 WORKDIR /app
 COPY . .
-RUN go mod tidy \
-    && go install github.com/swaggo/swag/cmd/swag@latest \
-    && swag init \
-    && go build -o cloudserver .
 
-FROM alpine:latest
-WORKDIR /app
-COPY --from=builder /app/cloudserver .
-COPY --from=builder /app/docs ./docs
+RUN go mod tidy
+RUN go install github.com/swaggo/swag/cmd/swag@latest
+
 EXPOSE 8080
-CMD ["./cloudserver"]
+
+CMD swag init -g cmd/cloudserver/main.go && go run cmd/cloudserver/main.go
