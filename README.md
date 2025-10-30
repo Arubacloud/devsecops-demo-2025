@@ -12,6 +12,15 @@ This repository demonstrates a modern DevSecOps workflow for deploying:
 
 Both the Go REST microservice and WordPress application use Aruba Cloud Database for data storage.
 
+## Link
+
+- [Static Web Site](https://devsecops2025.r3-it.storage.cloud.it/index.html)
+- [REST API](https://api.devsecops2025-arubacloud.com)
+- [Wordpress Backend](https://devsecops2025-arubacloud.com/wp-admin)
+- [Wordpress Site](https://devsecops2025-arubacloud.com/)
+- [ArgoCD](https://argocd.devsecops2025-arubacloud.com/wp-admin)
+- [Vault](https://vault.devsecops2025-arubacloud.com/wp-admin)
+
 ## Structure
 
 - `build/` — Source code and build assets (static site, Go REST microservice, WordPress Docker setup, etc.)
