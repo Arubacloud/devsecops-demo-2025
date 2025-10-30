@@ -32,7 +32,7 @@ Both the Go REST microservice and WordPress application use Aruba Cloud Database
 **ArubaCloud:** [https://arubacloud.com](https://arubacloud.com)
 
 <p align="center">
-  <img src="deployment.png" alt="Deployment Architecture" width="600"/>
+  <img src="image.png" alt="Deployment Architecture" width="600"/>
 </p>
 
 **Services:**
