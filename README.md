@@ -18,8 +18,7 @@ Both the Go REST microservice and WordPress application use Aruba Cloud Database
 - [REST API](https://api.devsecops2025-arubacloud.com)
 - [Wordpress Backend](https://devsecops2025-arubacloud.com/wp-admin)
 - [Wordpress Site](https://devsecops2025-arubacloud.com/)
-- [ArgoCD](https://argocd.devsecops2025-arubacloud.com/wp-admin)
-- [Vault](https://vault.devsecops2025-arubacloud.com/wp-admin)
+
 
 ## Structure
 
@@ -73,3 +72,6 @@ Both the Go REST microservice and WordPress application use Aruba Cloud Database
 - Kubernetes, Kustomize, cert-manager, ArgoCD
 - HashiCorp Vault, External Secrets Operator
 - Aruba Cloud Object Storage, Aruba Cloud Database
+
+- [ArgoCD](https://argocd.devsecops2025-arubacloud.com/wp-admin)
+- [Vault](https://vault.devsecops2025-arubacloud.com/wp-admin)
