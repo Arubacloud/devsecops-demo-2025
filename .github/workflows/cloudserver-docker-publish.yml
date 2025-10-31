@@ -25,7 +25,7 @@ jobs:
       - name: Build Docker image with docker compose
         run: |
           cd build/cloudserver
-          docker compose build restapi
+          docker-compose build restapi
 
       - name: Tag custom image
         run: |
@@ -41,5 +41,5 @@ jobs:
       - name: Restart docker compose
         run: |
           cd /home/ubuntu
-          docker compose down
-          docker compose up -d
+          docker-compose down
+          docker-compose up -d

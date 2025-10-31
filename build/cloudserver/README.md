@@ -42,7 +42,7 @@ This service provides a RESTful API for CRUD operations on a MySQL database, wri
 - Served at `/swagger/index.html`.
 - To update docs locally, install swag CLI and run `swag init`.
 
-## Example Usage (with curl)
+## Example Usage
 
 ### Health Check
 ```sh
