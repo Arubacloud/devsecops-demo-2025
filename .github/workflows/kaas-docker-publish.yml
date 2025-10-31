@@ -7,15 +7,22 @@ on:
     paths:
       - 'build/kaas/**'
 
+env:
+  DOCKER_REGISTRY: ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com
+  IMAGE_NAME: test/devsecopsdemo2025-cloudserver
+  IMAGE_TAG: latest
+
 jobs:
   build-and-push:
     runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Log in to Docker registry
-        run: echo $DOCKER_PASSWORD | docker login ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com -u $DOCKER_USERNAME --password-stdin
+        run: echo $DOCKER_PASSWORD | docker login ${{ env.DOCKER_REGISTRY }} -u $DOCKER_USERNAME --password-stdin
+
       - name: Build Docker image
-        run: docker build -t ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-kaas:latest build/kaas
+        run: docker build -t ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} build/kaas
       - name: Push Docker image
-        run: docker push ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-kaas:latest
+        run: docker push ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}

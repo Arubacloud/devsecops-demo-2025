@@ -7,6 +7,11 @@ on:
     paths:
       - 'build/cloudserver/**'
 
+env:
+  DOCKER_REGISTRY: ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com
+  IMAGE_NAME: test/devsecopsdemo2025-cloudserver
+  IMAGE_TAG: latest
+
 jobs:
   build-push-restart-cloudserver:
     runs-on: self-hosted
@@ -15,7 +20,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Log in to Docker registry
-        run: echo $DOCKER_PASSWORD | docker login ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com -u $DOCKER_USERNAME --password-stdin
+        run: echo $DOCKER_PASSWORD | docker login ${{ env.DOCKER_REGISTRY }} -u $DOCKER_USERNAME --password-stdin
 
       - name: Copy docker-compose.yml to /home/ubuntu
         run: cp build/cloudserver/docker-compose.yml /home/ubuntu/docker-compose.yml
@@ -27,11 +32,11 @@ jobs:
 
       - name: Tag custom image
         run: |
-          docker tag cloudserver_restapi:latest ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-cloudserver:latest
+          docker tag cloudserver_restapi:latest ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
       - name: Push Docker image
         run: |
-          docker push ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com/test/devsecopsdemo2025-cloudserver:latest
+          docker push ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
       - name: Restart docker compose
         run: |
