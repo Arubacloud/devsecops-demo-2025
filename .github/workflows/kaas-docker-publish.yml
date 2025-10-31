@@ -9,7 +9,7 @@ on:
 
 env:
   DOCKER_REGISTRY: docker.io
-  IMAGE_NAME: devsecopsdemo2025-kaas
+  IMAGE_NAME: amedeopalopoli/devsecopsdemo2025-kaas
   IMAGE_TAG: latest
 
 jobs:

@@ -3,7 +3,6 @@ FROM golang:1.21
 WORKDIR /app
 COPY . .
 
-# Use direct mode
 ENV GOPROXY=https://goproxy.io,direct
 ENV GOPRIVATE=""
 ENV GOSUMDB=off
