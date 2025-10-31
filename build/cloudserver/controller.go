@@ -112,7 +112,7 @@ func GetItemHandler(db *sql.DB) http.HandlerFunc {
 		err = db.QueryRow("SELECT id, name, description FROM items WHERE id = ?", id).Scan(&item.ID, &item.Name, &item.Description)
 		if err != nil {
 			w.WriteHeader(http.StatusNotFound)
-			fmt.Fprintf(w, "Item not found")
+			fmt.Fprintf(w, "Item not found!")
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")

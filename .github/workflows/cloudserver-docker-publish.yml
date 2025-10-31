@@ -8,8 +8,8 @@ on:
       - 'build/cloudserver/**'
 
 env:
-  DOCKER_REGISTRY: ha-pvt.accbw.itbg.svc8d.registry.services.testops.arubacloud.com
-  IMAGE_NAME: test/devsecopsdemo2025-cloudserver
+  DOCKER_REGISTRY: docker.io
+  IMAGE_NAME: devsecopsdemo2025-cloudserver
   IMAGE_TAG: latest
 
 jobs:
