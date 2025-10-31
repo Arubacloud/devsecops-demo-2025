@@ -31,7 +31,7 @@ This service provides a RESTful API for CRUD operations on a MySQL database, wri
 
 ## Environment Variables
 
-- `DB_HOST` — MySQL host (e.g., `mysql` for container, or external IP)
+- `DB_HOST` — MySQL host 
 - `DB_USERNAME` — MySQL username
 - `DB_PASSWORD` — MySQL password
 - `DB_NAME` — MySQL database name
