@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   restapi:
-    image: cloudserver_restapi:latest
+    image: cloudserver:latest
     environment:
       - DB_HOST=192.168.1.147
       - DB_USERNAME=restapi
