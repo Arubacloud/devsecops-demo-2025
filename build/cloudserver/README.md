@@ -16,7 +16,6 @@ This service provides a RESTful API for CRUD operations on a MySQL database, wri
 
 2. **Access the API**  
    - Default: `http://localhost:8080`  
-   - With Nginx: `https://api.devsecops2025-arubacloud.com` (if configured)
 
 3. **View Swagger UI**  
    - `http://localhost:8080/swagger/index.html`
