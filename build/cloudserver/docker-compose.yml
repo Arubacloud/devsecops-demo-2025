@@ -17,7 +17,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - certbot-webroot:/var/www/certbot
-      - letsencrypt:/etc/letsencrypt
+      - ./letsencrypt:/etc/letsencrypt
     depends_on:
       - certbot
     restart: unless-stopped
@@ -37,4 +37,3 @@ services:
 
 volumes:
   certbot-webroot:
-  letsencrypt:
