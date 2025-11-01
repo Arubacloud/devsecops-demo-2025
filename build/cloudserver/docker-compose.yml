@@ -10,21 +10,35 @@ services:
       - "8080"
 
   nginx:
-    image: nginx:latest
-    container_name: nginx
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./letsencrypt:/etc/letsencrypt
+    image: nginx:1.27-alpine
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+
+      # Webroot for ACME HTTP-01 challenges
+      - certbot-webroot:/var/www/certbot
+
+      # Shared certs between Nginx and Certbot
+      - letsencrypt:/etc/letsencrypt
     depends_on:
-      - restapi
+      - certbot
+    restart: unless-stopped
 
   certbot:
-    image: certbot/certbot
-    container_name: certbot
+    image: certbot/certbot:latest
     volumes:
-      - ./letsencrypt:/etc/letsencrypt
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-    entrypoint: /bin/sh -c "trap exit TERM; while :; do sleep 1; done"
+      - certbot-webroot:/var/www/certbot
+      - letsencrypt:/etc/letsencrypt
+    entrypoint: >
+      sh -c 'trap exit TERM; 
+             while :; do 
+               certbot renew --webroot -w /var/www/certbot --quiet; 
+               sleep 12h; 
+             done'
+    restart: unless-stopped
+
+volumes:
+  certbot-webroot:
+  letsencrypt:
