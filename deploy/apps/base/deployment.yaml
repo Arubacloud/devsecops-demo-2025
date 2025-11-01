@@ -34,6 +34,7 @@ spec:
       containers:
         - name: wordpress
           image: wordpress:6.6.2-apache
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:
