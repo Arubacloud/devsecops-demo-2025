@@ -29,7 +29,7 @@ jobs:
 
       - name: Tag custom image
         run: |
-          docker tag cloudserver_restapi:latest ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          docker tag cloudserver:latest ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 
       - name: Push Docker image
         run: |

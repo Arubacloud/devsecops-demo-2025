@@ -24,7 +24,7 @@ This service provides a RESTful API for CRUD operations on a MySQL database, wri
 
 For local development with live code reload and a local MySQL instance:
 
-1. **Create `docker-compose.override.yml`** (already gitignored):
+1. **Create `docker-compose.override.yml`**:
    ```yaml
    version: '3.8'
    services:
