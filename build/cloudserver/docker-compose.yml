@@ -16,11 +16,7 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-
-      # Webroot for ACME HTTP-01 challenges
       - certbot-webroot:/var/www/certbot
-
-      # Shared certs between Nginx and Certbot
       - letsencrypt:/etc/letsencrypt
     depends_on:
       - certbot
