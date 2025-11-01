@@ -7,6 +7,12 @@ generatorOptions:
 resources:
   - ../../base
 namespace: default
+
+images:
+  - name: wordpress
+    newName: amedeopalopoli/devsecopsdemo2025-kaas
+    newTag: latest
+
 configMapGenerator:
   - name: wordpress-apache-conf
     literals:

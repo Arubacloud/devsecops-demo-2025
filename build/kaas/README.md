@@ -31,3 +31,25 @@ The goal is to personalize and extend the WordPress theme for your project. You 
 - Use the WordPress admin panel to activate and preview your customized theme.
 - Keep theme changes versioned in Git for easy collaboration.
 - Refer to the official WordPress Theme Developer Handbook for advanced customization: https://developer.wordpress.org/themes/
+
+### Deploy
+
+To deploy your customized WordPress image to Kubernetes:
+
+1. **Build and push your Docker image** to your container registry (e.g., Docker Hub, Aruba Cloud Container Registry).
+
+2. **Update the Kustomization file** at `deploy/apps/overlays/prod/kustomization.yaml` to reference your new image:
+   ```yaml
+   images:
+     - name: wordpress
+       newName: your-registry/your-wordpress-image
+       newTag: latest
+   ```
+
+3. **Commit and push** your changes to trigger the GitOps deployment via ArgoCD.
+
+4. **Verify deployment** in your Kubernetes cluster or ArgoCD dashboard.
+
+For more details on Kustomize overlays, see the [deploy/apps/overlay](../../deploy/apps/overlay) folder.
+
+---
