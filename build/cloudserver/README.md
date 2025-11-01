@@ -20,6 +20,57 @@ This service provides a RESTful API for CRUD operations on a MySQL database, wri
 3. **View Swagger UI**  
    - `http://localhost:8080/swagger/index.html`
 
+## Local Development
+
+For local development with live code reload and a local MySQL instance:
+
+1. **Create `docker-compose.override.yml`** (already gitignored):
+   ```yaml
+   version: '3.8'
+   services:
+     restapi:
+       build: .
+       volumes:
+         - .:/app
+       environment:
+         - DB_HOST=mysql
+         - DB_USERNAME=root
+         - DB_PASSWORD=rootpass
+         - DB_NAME=restapi
+       depends_on:
+         - mysql
+
+     mysql:
+       image: mysql:8.0
+       environment:
+         MYSQL_ROOT_PASSWORD: rootpass
+         MYSQL_DATABASE: restapi
+       ports:
+         - "3306:3306"
+       volumes:
+         - mysql_data:/var/lib/mysql
+
+   volumes:
+     mysql_data:
+   ```
+
+2. **Start local environment**:
+   ```sh
+   docker-compose up -d
+   ```
+
+   Docker Compose automatically merges `docker-compose.yml` and `docker-compose.override.yml`.
+
+3. **View logs**:
+   ```sh
+   docker-compose logs -f restapi
+   ```
+
+4. **Stop local environment**:
+   ```sh
+   docker-compose down
+   ```
+
 ## Endpoints
 
 - `GET /items` — List all items
