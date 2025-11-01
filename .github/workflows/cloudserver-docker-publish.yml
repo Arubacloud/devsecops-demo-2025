@@ -39,9 +39,10 @@ jobs:
         run: |
           sed -i '/^[[:space:]]*image:/c\    image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}' build/cloudserver/docker-compose.yml
 
-
-      - name: Copy docker-compose.yml to /home/ubuntu
-        run: cp build/cloudserver/docker-compose.yml /home/ubuntu/docker-compose.yml
+      - name: Copy docker-compose.yml and nginx.conf to /home/ubuntu
+        run: |
+          cp build/cloudserver/docker-compose.yml /home/ubuntu/docker-compose.yml
+          cp build/cloudserver/nginx.conf /home/ubuntu/nginx.conf
 
       - name: Restart docker compose
         run: |
