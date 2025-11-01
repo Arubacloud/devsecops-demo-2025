@@ -15,7 +15,7 @@
 	<div class="wp-block-group">
 
 		<!-- wp:heading {"textAlign":"center","fontSize":"x-large","level":1} -->
-		<h1 class="wp-block-heading has-text-align-center has-x-large-font-size"><?php echo esc_html_x( 'A commitment to innovation and sustainability', 'Heading of the hero section', 'twentytwentyfour' ); ?></h1>
+		<h1 class="wp-block-heading has-text-align-center has-x-large-font-size"><?php echo esc_html_x( 'AperiCloud con Aruba', 'Heading of the hero section', 'twentytwentyfour' ); ?></h1>
 		<!-- /wp:heading -->
 
 		<!-- wp:spacer {"height":"1.25rem"} -->
@@ -23,7 +23,7 @@
 		<!-- /wp:spacer -->
 
 		<!-- wp:paragraph {"align":"center"} -->
-		<p class="has-text-align-center"><?php echo esc_html_x( 'Études is a pioneering firm that seamlessly merges creativity and functionality to redefine architectural excellence.', 'Content of the hero section', 'twentytwentyfour' ); ?></p>
+		<p class="has-text-align-center"><?php echo esc_html_x( 'Wordpress Application installata su Aruba Managed Kubernetes', 'Content of the hero section', 'twentytwentyfour' ); ?></p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:spacer {"height":"1.25rem"} -->

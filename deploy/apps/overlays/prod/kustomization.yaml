@@ -11,7 +11,7 @@ namespace: default
 images:
   - name: wordpress
     newName: amedeopalopoli/devsecopsdemo2025-kaas
-    newTag: latest
+    newTag: 0.0.1
 
 configMapGenerator:
   - name: wordpress-apache-conf
