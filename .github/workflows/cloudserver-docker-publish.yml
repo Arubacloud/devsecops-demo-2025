@@ -37,7 +37,7 @@ jobs:
 
       - name: Update docker-compose.yml with pushed image
         run: |
-          sed -i '/^[[:space:]]*image:/c\    image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}' build/cloudserver/docker-compose.yml
+          sed -i '0,/image: cloudserver:latest/s|image: cloudserver:latest|image: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}|' build/cloudserver/docker-compose.yml
 
       - name: Copy docker-compose.yml and nginx.conf to /home/ubuntu
         run: |
