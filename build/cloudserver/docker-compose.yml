@@ -7,7 +7,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD?err}
       DB_NAME: restapi
     expose:
-      - "8080"
+      - "8080:8080"
 
   nginx:
     image: nginx:1.27-alpine
