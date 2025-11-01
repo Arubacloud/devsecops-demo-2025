@@ -2,10 +2,10 @@ services:
   restapi:
     image: cloudserver:latest
     environment:
-      - DB_HOST=192.168.1.147
-      - DB_USERNAME=restapi
-      - DB_PASSWORD
-      - DB_NAME=restapi
+      DB_HOST: 192.168.1.147
+      DB_USERNAME: restapi
+      DB_PASSWORD: ${DB_PASSWORD?err}   # fail if missing
+      DB_NAME: restapi
     expose:
       - "8080"
 
