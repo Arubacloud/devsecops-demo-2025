@@ -17,7 +17,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # NEW: import runner env var into the job env
       - name: Import runner DB_PASSWORD into job env
         run: |
           : "${DB_PASSWORD:?DB_PASSWORD missing on runner environment}"
@@ -27,7 +26,6 @@ jobs:
       - name: Log in to Docker registry
         run: echo "$DOCKER_PASSWORD" | docker login "${{ env.DOCKER_REGISTRY }}" -u "$DOCKER_USERNAME" --password-stdin
 
-      # (Optional but robust) Write a .env so compose auto-loads it
       - name: Prepare .env for compose
         working-directory: build/cloudserver
         run: printf "DB_PASSWORD=%s\n" "$DB_PASSWORD" > .env

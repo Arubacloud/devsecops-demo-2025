@@ -4,7 +4,7 @@ services:
     environment:
       DB_HOST: 192.168.1.147
       DB_USERNAME: restapi
-      DB_PASSWORD: ${DB_PASSWORD?err}   # fail if missing
+      DB_PASSWORD: ${DB_PASSWORD?err}
       DB_NAME: restapi
     expose:
       - "8080"
