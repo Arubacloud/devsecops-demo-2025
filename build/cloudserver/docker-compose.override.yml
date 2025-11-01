@@ -1,0 +1,37 @@
+
+services:
+  restapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DB_HOST=mysql
+      - DB_USERNAME=restapi
+      - DB_PASSWORD=restapipassword
+      - DB_NAME=restapi
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: restapi
+      MYSQL_USER: restapi
+      MYSQL_PASSWORD: restapipassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  nginx:
+    entrypoint: ["/bin/true"]
+
+  certbot:
+    entrypoint: ["/bin/true"]
+
+volumes:
+  mysql-data:
