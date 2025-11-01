@@ -17,45 +17,65 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Import runner DB_PASSWORD into job env
+      # Import env vars from the runner service (Runner.Listener) into this job
+      - name: Import runner environment variables
+        shell: bash
         run: |
-          : "${DB_PASSWORD:?DB_PASSWORD missing on runner environment}"
-          echo "::add-mask::$DB_PASSWORD"
-          echo "DB_PASSWORD=$DB_PASSWORD" >> "$GITHUB_ENV"
+          set -euo pipefail
+          PID="$(pgrep -f 'Runner.Listener' | head -n1)"
+          if [[ -z "${PID:-}" ]]; then
+            echo "Runner.Listener PID not found"; exit 1
+          fi
+          pull_env () {
+            local key="$1"
+            local val
+            val="$(tr '\0' '\n' < /proc/$PID/environ | awk -F= -v k="$key" '$1==k{print substr($0,length($1)+2)}')"
+            if [[ -z "${val:-}" ]]; then
+              echo "Warning: $key not found in runner environment"
+              return 0
+            fi
+            echo "::add-mask::$val"
+            echo "$key=$val" >> "$GITHUB_ENV"
+          }
+          # Import what you need from the runner's systemd Environment=
+          pull_env DB_PASSWORD
+          pull_env DOCKER_USERNAME
+          pull_env DOCKER_PASSWORD
 
       - name: Log in to Docker registry
-        run: echo "$DOCKER_PASSWORD" | docker login "${{ env.DOCKER_REGISTRY }}" -u "$DOCKER_USERNAME" --password-stdin
+        shell: bash
+        run: echo "$DOCKER_PASSWORD" | docker login "$DOCKER_REGISTRY" -u "$DOCKER_USERNAME" --password-stdin
 
-      - name: Prepare .env for compose
+      - name: Build Docker image with docker-compose
         working-directory: build/cloudserver
-        run: printf "DB_PASSWORD=%s\n" "$DB_PASSWORD" > .env
-
-      - name: Build Docker image with docker compose
-        working-directory: build/cloudserver
-        run: docker compose build restapi   # use v2 syntax
+        shell: bash
+        run: |
+          docker-compose build restapi
 
       - name: Tag custom image
-        run: docker tag cloudserver:latest "${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
+        shell: bash
+        run: |
+          docker tag cloudserver:latest "$DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
 
       - name: Push Docker image
-        run: docker push "${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"
+        shell: bash
+        run: |
+          docker push "$DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
 
       - name: Update docker-compose.yml with pushed image
+        shell: bash
         run: |
-          sed -i '0,/image: cloudserver:latest/s|image: cloudserver:latest|image: '"${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}"'|' build/cloudserver/docker-compose.yml
+          sed -i '0,/image: cloudserver:latest/s|image: cloudserver:latest|image: '"$DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG"'|' build/cloudserver/docker-compose.yml
 
       - name: Copy docker-compose.yml and nginx.conf to /home/ubuntu
+        shell: bash
         run: |
           cp build/cloudserver/docker-compose.yml /home/ubuntu/docker-compose.yml
           cp build/cloudserver/nginx.conf /home/ubuntu/nginx.conf
 
-      # Also ensure /home/ubuntu has DB_PASSWORD available (optional if compose auto-loads .env there)
-      - name: Write .env for runtime compose
-        working-directory: /home/ubuntu
-        run: printf "DB_PASSWORD=%s\n" "$DB_PASSWORD" > .env
-
       - name: Restart docker compose
         working-directory: /home/ubuntu
+        shell: bash
         run: |
-          docker compose down
-          docker compose up -d
+          docker-compose down
+          docker-compose up -d
