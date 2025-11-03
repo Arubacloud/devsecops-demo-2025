@@ -13,6 +13,8 @@ spec:
       labels:
         app: wordpress
     spec:
+      imagePullSecrets:
+        - name: registry-pull-secret
       volumes:
         - name: apache-conf
           configMap:
