@@ -11,7 +11,7 @@ namespace: default
 images:
   - name: wordpress
     newName: ha-pvt.t0xe7uh231qhhb7.itbg.svc40.mycloudplatform.cloud/devsecops/demo2025-kaas
-    newTag: 0.0.2
+    newTag: 0.0.3
 
 configMapGenerator:
   - name: wordpress-apache-conf
