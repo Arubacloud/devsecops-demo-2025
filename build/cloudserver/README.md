@@ -128,5 +128,3 @@ curl -X PUT "http://localhost:8080/item/update?id=1" \
 ```sh
 curl -X DELETE "http://localhost:8080/item/delete?id=1"
 ```
----
-

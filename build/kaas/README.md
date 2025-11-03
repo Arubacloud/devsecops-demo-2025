@@ -51,5 +51,3 @@ To deploy your customized WordPress image to Kubernetes:
 4. **Verify deployment** in your Kubernetes cluster or ArgoCD dashboard.
 
 For more details on Kustomize overlays, see the [deploy/apps/overlay](../../deploy/apps/overlay) folder.
-
----
