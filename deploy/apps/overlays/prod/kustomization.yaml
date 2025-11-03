@@ -10,7 +10,7 @@ namespace: default
 
 images:
   - name: wordpress
-    newName: amedeopalopoli/devsecopsdemo2025-kaas
+    newName: ha-pvt.t0xe7uh231qhhb7.itbg.svc40.mycloudplatform.cloud
     newTag: 0.0.1
 
 configMapGenerator:

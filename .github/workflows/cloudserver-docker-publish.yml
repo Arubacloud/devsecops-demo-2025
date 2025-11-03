@@ -6,9 +6,9 @@ on:
     paths: [ 'build/cloudserver/**' ]
 
 env:
-  DOCKER_REGISTRY: docker.io
-  IMAGE_NAME: amedeopalopoli/devsecopsdemo2025-cloudserver
-  IMAGE_TAG: latest
+  DOCKER_REGISTRY: ha-pvt.t0xe7uh231qhhb7.itbg.svc40.mycloudplatform.cloud
+  IMAGE_NAME: devsecops/demo2025-cloudserver
+  IMAGE_TAG: 0.0.1
 
 jobs:
   build-push-restart-cloudserver:
