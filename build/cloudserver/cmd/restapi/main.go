@@ -16,6 +16,8 @@ func main() {
 	database := db.InitDB()
 	defer database.Close()
 
+	log.Println("Welcome from DevSecOps-Bologna 2025")
+	
 	http.HandleFunc("/ping", controller.PingHandler(database))
 	http.HandleFunc("/items", controller.GetItemsHandler(database))
 	http.HandleFunc("/item", controller.GetItemHandler(database))
