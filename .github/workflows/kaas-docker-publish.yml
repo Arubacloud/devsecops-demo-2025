@@ -10,7 +10,7 @@ on:
 env:
   DOCKER_REGISTRY: ha-pvt.t0xe7uh231qhhb7.itbg.svc40.mycloudplatform.cloud
   IMAGE_NAME: devsecops/demo2025-kaas
-  IMAGE_TAG: 0.0.3
+  IMAGE_TAG: 0.0.4
 
 jobs:
   build-and-push:
