@@ -24,4 +24,4 @@ jobs:
 
       - name: Upload website to Aruba Cloud Object Storage
         run: |
-          aws s3 sync build/objectstorage/ s3://devsecops2025/ --endpoint-url https://r3-it.storage.cloud.it --acl public-read
+          aws s3 sync build/objectstorage/ s3://devsecops2025/ --endpoint-url http://r3-it.storage.cloud.it --acl public-read
