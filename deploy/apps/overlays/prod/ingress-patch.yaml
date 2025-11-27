@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: wordpress-ingress
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: actalis-acme
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
@@ -26,4 +26,4 @@ spec:
   tls:
     - hosts:
         - devsecops2025-arubacloud.com
-      secretName: devsecops2025-arubacloud-com-tls
+      secretName: devsecops2025-arubacloud-tls
