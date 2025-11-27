@@ -23,7 +23,7 @@
 		<!-- /wp:spacer -->
 
 		<!-- wp:paragraph {"align":"center"} -->
-		<p class="has-text-align-center"><?php echo esc_html_x( 'Wordpress Application installed on Aruba Managed Kubernetes', 'Content of the hero section', 'twentytwentyfour' ); ?></p>
+		<p class="has-text-align-center"><?php echo esc_html_x( 'Wordpress Application installed on Aruba Managed Kubernetes - Test', 'Content of the hero section', 'twentytwentyfour' ); ?></p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:spacer {"height":"1.25rem"} -->
