@@ -14,6 +14,7 @@ import (
 
 func main() {
 	database := db.InitDB()
+	
 	defer database.Close()
 
 	log.Println("Welcome from DevSecOps-Bologna 2025 - Aruba")
